@@ -31,23 +31,6 @@ export class CursoService {
       }))
     }  
 
-  
-  //Cadastrar curso
-  /*cadastrarCurso(c: Curso): Observable<Curso[]>{
-    console.log("Em curso.service.ts cadastrarCurso: " + c);
-    console.log(c);
-
-    
-    return this.http.post(this.url+"cadastrar", {cursos: c})
-    .pipe( map((res:any) => {
-
-      console.log('push: ' + res);        //modificado para teste
-
-      this.vetor.push(res);
-      return this.vetor;
-    }))
-  }*/
-
   cadastrarCurso(curso:Curso):Observable<Curso>{
     return this.http.post<Curso>(this.url+'cadastrar',curso)
     }
@@ -60,44 +43,6 @@ export class CursoService {
       return this.http.delete<Curso>(url);
     }
    
-
-//Remover curso CAPGGEMINI 
-removerCurso2(c: Curso): Observable<Curso[]>{
-
-  const params = new HttpParams().set("idCurso", c.idCurso.toString());
-
-  return this.http.delete(this.url + 'excluir', {params: params})
-  .pipe(map((res: any) =>  {
-    const filtro = this.vetor.filter((curso) => {
-      return +curso['idCurso'] != +c.idCurso;
-    });
-
-    return this.vetor = filtro;
-  }))
-}
-
-
-/*
-//Remover Curso - modificado
-removerCurso(c: Curso): Observable<Curso[]>{
-
-  const params = new HttpParams().set("idCurso", c?.idCurso?.toString() ?? 'nothing');
-
-    return this.http.delete(this.url + 'excluir', {params: params})
-    .pipe(map((res) =>  {
-      const filtro = this.vetor.filter((curso) => {
-        const auxIdCurso = c?.idCurso ?? '-1';
-        const auxCurso = curso['idCurso'] ?? '-1';
-        return +auxCurso != +auxIdCurso;
-      });
-
-    return this.vetor = filtro;
-
-  }))
-}
-*/
-
-
 
 }
 
