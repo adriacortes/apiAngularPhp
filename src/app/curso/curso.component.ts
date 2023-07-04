@@ -43,48 +43,59 @@ export class CursoComponent implements OnInit {
     )
   }
 
-
-  //Cadastrar
-  cadastro(){
-    console.log("Em curso.componente cadastro() " + "cursoNome: " + this.curso.nomeCurso + " valorCurso:" + this.curso.valorCurso )
-    
-    this.curso_service.cadastrarCurso(this.curso).subscribe(
-      (res: Curso) => {
-
-        //Adicionando dados ao vetor
-        //this.vetor = res;
-
-        //Limpar os atributos
-        this.curso.nomeCurso = "";
-        this.curso.valorCurso = 0;
-
-        //Atualizar listagem de cursos
-        this.selecao();
-      } 
-    );
-  }
-
-
-
-
+  salvar()
+  {
   
-  //Alterar
-  alterar(): void{
-    alert("Alterar");
+    //Se o ID do curso for undefined quer dizer que é um NOVO curso,ou seja,é para cadastrar!
+    if(this.curso.idCurso == undefined)
+    {
+      this.cadastro();
+    }else 
+    {
+      this.alterar();
+    }
+    //Se o curso tiver ID é porque ele foi selecionado! ou seja,podemos excluir ou alterar! Neste caso,ao
+    //clicar em salvar,como faz a verificação do ID,se for diferent de UNDEFINED,ou seja,cai no else,vai
+    //ser chamado o método de alterar!
+
   }
 
+  cadastro(){
+    //Listagem dos dados no console
+    //console.log("Em curso.componente cadastro() " + "cursoNome: " + this.curso.nomeCurso + " valorCurso:" + this.curso.valorCurso )
+          this.curso_service.cadastrarCurso(this.curso).subscribe(
+            (res: Curso) => {
+              //Limpar os atributos
+              this.curso.nomeCurso = "";
+              this.curso.valorCurso = 0;
+      
+              //Atualizar listagem de cursos
+              this.selecao();
+            } 
+          );
+  }
 
-    //Remover - CAPGEMINI
-    remove3r(){ // alterei aqui
+  alterar()
+  {
+   this.curso_service.alterarCurso(this.curso).subscribe(
+    (res: Curso) => {
+      this.curso.nomeCurso="";
+      this.curso.valorCurso=0;
+      this.selecao();
+      alert("Curso de ID "+this.curso.idCurso+" alterado com sucesso!" )
+    }
+   );
+  }
+
+  remove3r(){ // alterei aqui
       this.curso_service.removerCurso(this.curso.idCurso).subscribe(
-        resp => console.log('Deu certo, resp'),
+        resp => console.log('Deu certo',resp),
         err => console.log('Deu erro', err)
-        
       );
       this.selecao();//atualiza a tabela
       this.curso.nomeCurso = "";
       this.curso.valorCurso = 0;
-    }
+  }
 
      
 
@@ -103,9 +114,11 @@ export class CursoComponent implements OnInit {
 
   //Selecionar um curso especifico na tabela
   selecionarCurso(c: Curso){
+    
     this.curso.idCurso = c.idCurso; 
     this.curso.nomeCurso = c.nomeCurso;
     this.curso.valorCurso = c.valorCurso;
+    console.log("Curso selecionado: ", this.curso.nomeCurso + "id: "+this.curso.idCurso)
   }
 
 

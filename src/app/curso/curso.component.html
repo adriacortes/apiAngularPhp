@@ -1,28 +1,25 @@
-
-
-
-<form (ngSubmit)="cadastro()">
+<h1>Gerenciamento de Cursos</h1>
+<form (ngSubmit)="salvar()"> <!-- atenção ao nome do metodo-->
 <label for="nomeCurso"  >Curso </label>
 <input name="nomeCurso" [(ngModel)]="curso.nomeCurso" type="text">
 <br>
 <label for="valorCurso" >Valor </label>
 <input  name="valorCurso" [(ngModel)]="curso.valorCurso" type="number">
-<br>
-<button type="submit">Cadastrar</button>
+<br><br>
+<button type="submit">Salvar</button>
 </form>  
 
 <section>
-    <!--button (click)="selecao()">Selecionar</button-->
-    <button (click)="alterar()">Alterar</button>
     <button (click)="remover()">Excluir</button>
 </section>
 
 
 <table border="1">
     <tr *ngFor="let v of vetor">
+        <td>{{v.idCurso}}</td>
         <td>{{v.nomeCurso}}</td>
         <td>{{v.valorCurso}}</td>
-        <td><button (click)="selecionarCurso(v)">Selecionar curso</button></td><!-- Alterei aqui -->
+        <td><button (click)="selecionarCurso(v)">Selecionar curso</button></td>
     </tr>
 </table>
 

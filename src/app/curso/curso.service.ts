@@ -21,27 +21,31 @@ export class CursoService {
    //Construtor
   constructor(private http: HttpClient) { }
 
- //FACILITADOR CAP
+  cadastrarCurso(curso:Curso):Observable<Curso>{
+    return this.http.post<Curso>(this.url+'cadastrar',curso)
+  }
+
+  alterarCurso(curso:Curso):Observable<Curso>{
+    return this.http.put<Curso>(this.url+'alterar',curso)
+  }
+
+  
+  //Listagem de cursos
   obterCursos():Observable<Curso[]>{   
     return this.http.get(this.url+"listar")   
     .pipe( map((res:any) =>{    
-       this.vetor = res; // remover o res['curso']
-       debugger
+       this.vetor = res; 
        return this.vetor;
       }))
     }  
 
-  cadastrarCurso(curso:Curso):Observable<Curso>{
-    return this.http.post<Curso>(this.url+'cadastrar',curso)
-    }
-
-    removerCurso(id: any): Observable<Curso> 
+  removerCurso(id: any): Observable<Curso> 
     {
-      //id do curso via url ex.: http://localhost/php-pris/excluir?idCurso=3
+      //Remover curso via ID(por parametro na url) ex.: http://localhost/php-pris/excluir?idCurso=3
       const url = `${this.url}excluir?idCurso=${id}`
-      console.log(url);
       return this.http.delete<Curso>(url);
     }
+
    
 
 }
