@@ -79,25 +79,15 @@ export class CursoComponent implements OnInit {
   {
    this.curso_service.alterarCurso(this.curso).subscribe(
     (res: Curso) => {
+      alert("Curso de ID "+this.curso.idCurso+" alterado com sucesso!" )
+      //Limpando dados do curso
+      this.curso.idCurso=undefined;
       this.curso.nomeCurso="";
       this.curso.valorCurso=0;
       this.selecao();
-      alert("Curso de ID "+this.curso.idCurso+" alterado com sucesso!" )
     }
    );
   }
-
-  remove3r(){ // alterei aqui
-      this.curso_service.removerCurso(this.curso.idCurso).subscribe(
-        resp => console.log('Deu certo',resp),
-        err => console.log('Deu erro', err)
-      );
-      this.selecao();//atualiza a tabela
-      this.curso.nomeCurso = "";
-      this.curso.valorCurso = 0;
-  }
-
-     
 
   //Remover
   remover(){//aqui
@@ -110,11 +100,9 @@ export class CursoComponent implements OnInit {
       }
     );
   }
-  
 
   //Selecionar um curso especifico na tabela
   selecionarCurso(c: Curso){
-    
     this.curso.idCurso = c.idCurso; 
     this.curso.nomeCurso = c.nomeCurso;
     this.curso.valorCurso = c.valorCurso;

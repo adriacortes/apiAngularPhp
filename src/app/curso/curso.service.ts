@@ -29,7 +29,6 @@ export class CursoService {
     return this.http.put<Curso>(this.url+'alterar',curso)
   }
 
-  
   //Listagem de cursos
   obterCursos():Observable<Curso[]>{   
     return this.http.get(this.url+"listar")   
